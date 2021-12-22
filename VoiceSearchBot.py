@@ -39,28 +39,34 @@ options = webdriver.ChromeOptions()
 options.add_argument('--ignore-certificate-errors-spki-list')
 options.add_argument('--ignore-ssl-errors')
 driver.get("https://www.google.com")
+driver.minimize_window()
 
 search = driver.find_element_by_name("q")
 
 search.send_keys(words)
 search.send_keys(Keys.RETURN)
+time.sleep(1)
+
+# results = driver.find_elements_by_xpath("//div[@class='kno-rdesc']")
+# for value in results:
+#     print(value.text)
+#     value2 = value.text
+# else:
+#     value2 = "Description not on page"
 
 try:
     main = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, "//div[@class='kno-rdesc']"))
+        EC.presence_of_element_located((By.ID,"main"))
     )
     results = driver.find_elements_by_xpath("//div[@class='kno-rdesc']")
     for value in results:
         value2 = value.text
         print(value.text)
+    else: 
+        value2 = "Description not on Google"
 finally:
     pass
 
-# init function to get an engine instance for the speech synthesis 
 engine = pyttsx3.init()
-  
-# say method on the engine that passing input text to be spoken
 engine.say(value2)
-  
-# run and wait method, it processes the voice commands. 
 engine.runAndWait()
