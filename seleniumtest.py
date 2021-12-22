@@ -8,7 +8,7 @@ options.add_argument('--ignore-ssl-errors')
 driver = webdriver.Chrome(chrome_options=options)
 
 element = driver.find_element_by_name("q")
-element.send_keys("catdog")
+element.send_keys("catdog"+ Keys.RETURN)
 element.submit()
 
 results = driver.find_elements_by_xpath("//div[@class='g']//div[@class='r']//a[not(@class)]");
